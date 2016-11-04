@@ -4,6 +4,7 @@ var fs = require('fs');
 var express = require('express');
 var wpi = require('wiring-pi');
 var pins = {};
+var pinsKeys = {};
 
 try {
   var config = JSON.parse(fs.readFileSync('config.json',{encoding:"utf8"}));
@@ -19,12 +20,8 @@ wpi.setup('wpi');
 var expressWs = require('express-ws')(app);
 var wsI = expressWs.getWss();
 
-//Debug.
-setInterval(function () {
-  aWss.clients.forEach(function (client) {
-    client.send('hello');
-  });
-}, 5000);
+//Accept requests for WS.
+app.ws('*',function(ws,req){});
 
 //Open GPIO for writing.
 for ( var i=1; i<=config.pins; i++ ) {
@@ -34,6 +31,10 @@ for ( var i=1; i<=config.pins; i++ ) {
 
 //Server static files.
 app.use(express.static('../front-end'));
+
+app.get('/list', function(req,res){
+  res.end(JSON.stringify(pinsKeys));
+});
 
 app.get('/switch*', function(req,res){
 
@@ -64,7 +65,7 @@ app.listen(config.port, function () {
 function toggleSwitch(sw,status,callback) {
 
   //Do GPIO things.
-  var gs = sw.split("|");
+  var gs = sw.split("__");
   if ( gs.length < 2 ) {
     console.error("Request received with no switch group");
     callback(false);
@@ -82,7 +83,7 @@ function toggleSwitch(sw,status,callback) {
   //Do GPIO things.
   var pin = config.switches[group][swName];
   var val = 1;
-  console.log("Set pin " + pin + " to " + status);
+  //console.log("Set pin " + pin + " to " + status);
 
   if ( status === "off" ) {
     val = 0;
@@ -91,6 +92,17 @@ function toggleSwitch(sw,status,callback) {
   wpi.digitalWrite(pin,val);
   pins[pin] = val;
   console.log(pins);
+
+  //Update my internal store.
+  pinsKeys[sw] = status;
+  console.log(pinsKeys);
+
+  wsI.clients.forEach(function (client) {
+    client.send(JSON.stringify({
+      sw: sw,
+      status: status
+    }));
+  });
 
   callback(true);
 
