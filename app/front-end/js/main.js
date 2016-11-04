@@ -18,6 +18,7 @@
           core.log( "Response: " + xmlhttp.responseText );
         } else {
           core.error( "Res error: " + xmlhttp.status );
+          alert('There was an error processing your request');
         }
       }
     };
