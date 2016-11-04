@@ -1,6 +1,7 @@
 var fs = require('fs');
 var express = require('express');
 var wpi = require('wiring-pi');
+var pins = {};
 
 try {
   var config = JSON.parse(fs.readFileSync('config.json',{encoding:"utf8"}));
@@ -15,6 +16,7 @@ wpi.setup('wpi');
 //Open GPIO for writing.
 for ( var i=1; i<=config.pins; i++ ) {
   wpi.pinMode(i,wpi.OUTPUT);
+  pins[i] = 0;
 }
 
 //Server static files.
@@ -74,6 +76,8 @@ function toggleSwitch(sw,status,callback) {
   }
 
   wpi.digitalWrite(pin,val);
+  pins[pin] = val;
+  console.log(pins);
 
   callback(true);
 
