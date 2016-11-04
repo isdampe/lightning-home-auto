@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Lightning</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="vendor/fw7/css/framework7.material.min.css">
+    <link rel="stylesheet" href="vendor/fw7/css/framework7.material.colors.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="vendor/fw7/css/my-app.css">
+  </head>
+  <body>
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+      <div class="content-block-title">Navigation</div>
+
+        <div class="list-block">
+          <ul>
+            <li>
+              <a href="#" class="item-link item-content">
+                <div class="item-inner">
+                  <div class="item-title">Outdoor control</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="item-link item-content">
+                <div class="item-inner">
+                  <div class="item-title">Configuration</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+    </div>
+
+    <!-- Views-->
+    <div class="views" id="views">
+
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main">
+
+        <!-- Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <!-- We have home navbar without left link-->
+
+            <div class="center" id="navbar_title">Lightning</div>
+            <!--<div class="right">
+              <a id="navbar_menu" href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+            </div>-->
+          </div>
+        </div>
+
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through" id="pages">
+
+          <!-- Page, data-page contains page name-->
+          <div data-page="toggles" class="page">
+            <!-- Scrollable page content-->
+            <div class="page-content">
+              <div class="content-block-title">&nbsp;</div>
+
+              <div class="content-block-title">Gazebo</div>
+              <div class="list-block">
+                <ul data-group="gazebo">
+
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                        <div class="item-title label" style="width:60%;">Spotlights 1</div>
+                        <div class="item-input" style="width: 17.5%;">
+                          <label class="label-switch">
+                            <input data-switch="true" name="gazebo|spotlights1" type="checkbox">
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                        <div class="item-title label" style="width:60%;">Spotlights 2</div>
+                        <div class="item-input" style="width: 17.5%;">
+                          <label class="label-switch">
+                            <input data-switch="true" name="gazebo|spotlights2" type="checkbox">
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                        <div class="item-title label" style="width:60%;">Post lighting</div>
+                        <div class="item-input" style="width: 17.5%;">
+                          <label class="label-switch">
+                            <input data-switch="true" name="gazebo|postlighting" type="checkbox">
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                        <div class="item-title label" style="width:60%;">Deck lighting (front)</div>
+                        <div class="item-input" style="width: 17.5%;">
+                          <label class="label-switch">
+                            <input data-switch="true" name="gazebo|decklighting1" type="checkbox">
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                        <div class="item-title label" style="width:60%;">Deck lighting (rear)</div>
+                        <div class="item-input" style="width: 17.5%;">
+                          <label class="label-switch">
+                            <input data-switch="true" name="gazebo|decklighting2" type="checkbox">
+                            <div class="checkbox"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+
+
+                </ul>
+              </div>
+              <div class="content-block">
+                <a data-switch-all="gazebo" href="#" class="button button-big button-round button-fill">Toggle all </a>
+              </div>
+
+
+            </div>
+          </div>
+
+
+
+        </div>
+
+      </div>
+    </div>
+
+
+  <script src="js/main.js"></script>
+  </body>
+</html>

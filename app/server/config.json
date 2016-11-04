@@ -1,0 +1,13 @@
+{
+  "port": "8001",
+  "pins": 8,
+  "switches": {
+    "gazebo": {
+      "spotlights1": 1,
+      "spotlights2": 2,
+      "postlighting": 3,
+      "decklighting1": 4,
+      "decklighting2": 5
+    }
+  }
+}
