@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fs = require('fs');
 var express = require('express');
 var wpi = require('wiring-pi');
@@ -12,6 +14,17 @@ try {
 
 var app = express();
 wpi.setup('wpi');
+
+//Web socket.
+var expressWs = require('express-ws')(app);
+var wsI = expressWs.getWss();
+
+//Debug.
+setInterval(function () {
+  aWss.clients.forEach(function (client) {
+    client.send('hello');
+  });
+}, 5000);
 
 //Open GPIO for writing.
 for ( var i=1; i<=config.pins; i++ ) {
