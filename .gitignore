@@ -1,2 +1,3 @@
 app/server/node_modules/*
+app/server/cron.json
 app/server/config.json

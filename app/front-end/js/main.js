@@ -155,6 +155,32 @@
     xmlhttp.send();
   }
 
+  core.performAction = function(e) {
+    e.preventDefault();
+    var command = this.getAttribute('data-command');
+    var confirmation = this.getAttribute('data-confirm');
+
+    if (! command || command == "" ) {
+      console.error('No command specified');
+      return false;
+    }
+
+    var url = '/' + command;
+    var callback = function() {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open( "GET", url, true );
+      xmlhttp.send();
+    };
+
+    if ( confirmation ) {
+      if ( confirm(confirmation) ) {
+        callback();
+      }
+    } else {
+      callback();
+    }
+  };
+
   core.main = function() {
 
     var buttons = document.querySelectorAll( '[data-switch=true]' );
@@ -166,6 +192,13 @@
     for ( var i = 0; i < toggleAlls.length; i++ ) {
       toggleAlls[ i ].addEventListener( 'click', core.toggleGroup );
       toggleAlls[ i ].addEventListener( 'touchstart', core.toggleGroup );
+    }
+
+    //Shutdown.
+    var actions = document.querySelectorAll('[data-command]');
+    for ( var i = 0; i < actions.length; i++ ) {
+      actions[i].addEventListener('click', core.performAction );
+      actions[i].addEventListener('touchstart', core.performAction );
     }
 
     //Websocket.

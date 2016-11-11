@@ -3,6 +3,7 @@
 var fs = require('fs');
 var express = require('express');
 var wpi = require('wiring-pi');
+var exec = require('child_process').exec;
 var pins = {};
 var pinsKeys = {};
 
@@ -32,9 +33,21 @@ for ( var i=1; i<=config.pins; i++ ) {
 //Server static files.
 app.use(express.static('../front-end'));
 
+require('./controllers/cron.js')(app,toggleSwitch);
+
 app.get('/list', function(req,res){
   res.end(JSON.stringify(pinsKeys));
 });
+
+app.get('/shutdown', function(req,res){
+  exec('/sbin/init 0');
+	res.end('Shutting down!');
+})
+
+app.get('/restart', function(req,res){
+  exec('/sbin/reboot now');
+  res.end('Rebooting!');
+})
 
 app.get('/switch*', function(req,res){
 
@@ -104,6 +117,8 @@ function toggleSwitch(sw,status,callback) {
     }));
   });
 
-  callback(true);
+  if ( typeof callback !== 'undefined' ) {
+    callback(true);
+  }
 
 };
