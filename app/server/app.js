@@ -33,7 +33,7 @@ for ( var i=1; i<=config.pins; i++ ) {
 //Server static files.
 app.use(express.static('../front-end'));
 
-require('./controllers/cron.js')(app,toggleSwitch);
+//require('./controllers/cron.js')(app,toggleSwitch);
 
 app.get('/list', function(req,res){
   res.end(JSON.stringify(pinsKeys));
