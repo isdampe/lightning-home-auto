@@ -95,11 +95,11 @@ function toggleSwitch(sw,status,callback) {
 
   //Do GPIO things.
   var pin = config.switches[group][swName];
-  var val = 1;
+  var val = 0;
   //console.log("Set pin " + pin + " to " + status);
 
   if ( status === "off" ) {
-    val = 0;
+    val = 1;
   }
 
   wpi.digitalWrite(pin,val);
