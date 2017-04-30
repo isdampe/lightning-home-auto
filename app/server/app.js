@@ -28,6 +28,7 @@ app.ws('*',function(ws,req){});
 for ( var i=1; i<=config.pins; i++ ) {
   wpi.pinMode(i,wpi.OUTPUT);
   pins[i] = 0;
+  wpi.digitalWrite(i,1);
 }
 
 //Server static files.
@@ -104,11 +105,11 @@ function toggleSwitch(sw,status,callback) {
 
   wpi.digitalWrite(pin,val);
   pins[pin] = val;
-  console.log(pins);
+  //console.log(pins);
 
   //Update my internal store.
   pinsKeys[sw] = status;
-  console.log(pinsKeys);
+  //console.log(pinsKeys);
 
   wsI.clients.forEach(function (client) {
     client.send(JSON.stringify({
